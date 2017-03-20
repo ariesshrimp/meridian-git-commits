@@ -48,7 +48,7 @@ var releaseNotes = _ramda2.default.pipe(_fs2.default.readFileSync, _ramda2.defau
 
 var updateRepo = function () {
   var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
-    var gh, repo, _ref2, number, merge, release;
+    var gh, repo, _ref2, number, merge, deadBranch, release;
 
     return _regenerator2.default.wrap(function _callee$(_context) {
       while (1) {
@@ -92,18 +92,26 @@ var updateRepo = function () {
             merge = _context.sent;
 
 
-            console.log('\nAdd release notes...\n');
+            console.log('\nDelete remote release branch\n');
             _context.next = 20;
+            return repo.deleteRef('heads/release-v' + _package2.default.version);
+
+          case 20:
+            deadBranch = _context.sent;
+
+
+            console.log('\nAdd release notes...\n');
+            _context.next = 24;
             return repo.createRelease({
               tag_name: 'v' + _package2.default.version,
               name: 'v' + _package2.default.version,
               body: releaseNotes
             });
 
-          case 20:
+          case 24:
             release = _context.sent;
 
-          case 21:
+          case 25:
           case 'end':
             return _context.stop();
         }
