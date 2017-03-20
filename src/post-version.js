@@ -2,13 +2,12 @@ import GitHub from 'github-api';
 import shell from 'shelljs';
 import packageJson from '../package.json';
 import R from 'ramda';
-import {AUTH_TOKEN} from '../config.json';
 import fs from 'fs';
 
 console.log(process.env);
 
 const options = {
-  AUTH_TOKEN: process.env.GH_TOKEN || AUTH_TOKEN,
+  AUTH_TOKEN: process.env.GH_TOKEN,
   USER_NAME: 'joefraley',
   repo: {
     name: 'meridian-git-commits',
@@ -30,6 +29,9 @@ const updateRepo = async () => {
 
   console.log('\nCheckout a new release branch...\n');
   shell.exec(`git checkout -b release-v${packageJson.version}`);
+  shell.exec(
+    `git commit --amend -m  "chore(release): v${packageJson.version} [skip ci]"`
+  );
 
   console.log('\nSend new release tags up to remote...\n');
   shell.exec(`git push --follow-tags origin release-v${packageJson.version}`);
