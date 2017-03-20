@@ -30,49 +30,39 @@ var _path = require('path');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var releaseNotes = function releaseNotes(CHANGELOG) {
-  return (0, _ramda.pipe)(_fs.readFileSync, _ramda.toString, (0, _ramda.split)(/(<a name=")(\d\.\d\.\d).+(<\/a>)/gi), (0, _ramda.nth)(4))(CHANGELOG);
-};
+var releaseNotes = (0, _ramda.pipe)(_fs.readFileSync, _ramda.toString, (0, _ramda.split)(/(<a name=")(\d\.\d\.\d).+(<\/a>)/gi), (0, _ramda.nth)(4));
 
 var gh = new _githubApi2.default({ token: process.env.GH_TOKEN });
 var name = (0, _ramda.pipe)((0, _ramda.split)('/'), _ramda.last, (0, _ramda.split)('.'), _ramda.head)(_package2.default.repository.url);
 var v = 'v' + _package2.default.version;
 
-var updateRepo = function () {
-  var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
-    var repo, ammendRelease, pushTags;
-    return _regenerator2.default.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            _context.next = 2;
-            return gh.getRepo(process.env.GIT_USER, name);
+exports.default = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
+  var repo, ammendRelease, pushTags;
+  return _regenerator2.default.wrap(function _callee$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          _context.next = 2;
+          return gh.getRepo(process.env.GIT_USER, name);
 
-          case 2:
-            repo = _context.sent;
-            ammendRelease = (0, _shelljs.exec)('git commit --amend -m  "chore(release): ' + v + ' [skip ci]"');
-            pushTags = (0, _shelljs.exec)('git push -f --follow-tags origin master');
-            _context.next = 7;
-            return repo.createRelease({
-              tag_name: v,
-              name: v,
-              body: releaseNotes((0, _path.resolve)(__dirname, './CHANGELOG.md'))
-            });
+        case 2:
+          repo = _context.sent;
+          ammendRelease = (0, _shelljs.exec)('git commit --amend -m  "chore(release): ' + v + ' [skip ci]"');
+          pushTags = (0, _shelljs.exec)('git push -f --follow-tags origin master');
+          _context.next = 7;
+          return repo.createRelease({
+            tag_name: v,
+            name: v,
+            body: releaseNotes((0, _path.resolve)(__dirname, './CHANGELOG.md'))
+          });
 
-          case 7:
-            return _context.abrupt('return', _context.sent);
+        case 7:
+          return _context.abrupt('return', _context.sent);
 
-          case 8:
-          case 'end':
-            return _context.stop();
-        }
+        case 8:
+        case 'end':
+          return _context.stop();
       }
-    }, _callee, undefined);
-  }));
-
-  return function updateRepo() {
-    return _ref.apply(this, arguments);
-  };
-}();
-
-exports.default = updateRepo;
+    }
+  }, _callee, undefined);
+}));
