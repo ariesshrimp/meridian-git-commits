@@ -2,13 +2,12 @@ import GitHub from 'github-api';
 import shell from 'shelljs';
 import packageJson from '../package.json';
 import R from 'ramda';
-import {AUTH_TOKEN} from '../config.json';
 import fs from 'fs';
 
 console.log(process.env);
 
 const options = {
-  AUTH_TOKEN: process.env.GH_TOKEN || AUTH_TOKEN,
+  AUTH_TOKEN: process.env.GH_TOKEN,
   USER_NAME: 'joefraley',
   repo: {
     name: 'meridian-git-commits',
