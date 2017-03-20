@@ -38,6 +38,7 @@ const defaults = {
   silent: false,
   tagPrefix: 'v',
 };
+
 const optionsFromArgs = pipe(
   drop(2),
   partition(contains('--')),

@@ -35,6 +35,7 @@ var defaults = {
   silent: false,
   tagPrefix: 'v'
 };
+
 var optionsFromArgs = (0, _ramda.pipe)((0, _ramda.drop)(2), (0, _ramda.partition)((0, _ramda.contains)('--')), zipFromPartition([(0, _ramda.compose)(stripDashes, _ramda.head), _ramda.last]), (0, _ramda.merge)(defaults), (0, _ramda.tap)(log));
 
 exports.default = function () {
