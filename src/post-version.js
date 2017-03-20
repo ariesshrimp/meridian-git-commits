@@ -5,13 +5,12 @@ import {pipe, last, split, head, toString, nth} from 'ramda';
 import {readFileSync} from 'fs';
 import {resolve} from 'path';
 
-const releaseNotes = CHANGELOG =>
-  pipe(
-    readFileSync,
-    toString,
-    split(/(<a name=")(\d\.\d\.\d).+(<\/a>)/gi),
-    nth(4)
-  )(CHANGELOG);
+const releaseNotes = pipe(
+  readFileSync,
+  toString,
+  split(/(<a name=")(\d\.\d\.\d).+(<\/a>)/gi),
+  nth(4)
+);
 
 const gh = new GitHub({token: process.env.GH_TOKEN});
 const name = pipe(split('/'), last, split('.'), head)(
@@ -19,7 +18,7 @@ const name = pipe(split('/'), last, split('.'), head)(
 );
 const v = `v${packageJson.version}`;
 
-const updateRepo = async () => {
+export default async () => {
   const repo = await gh.getRepo(process.env.GIT_USER, name);
   const ammendRelease = exec(
     `git commit --amend -m  "chore(release): ${v} [skip ci]"`
@@ -32,5 +31,3 @@ const updateRepo = async () => {
     body: releaseNotes(resolve(__dirname, './CHANGELOG.md')),
   });
 };
-
-export default updateRepo;
