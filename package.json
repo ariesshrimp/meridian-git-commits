@@ -12,6 +12,7 @@
     "github-api": "3.0.0",
     "github-remove-all-releases": "1.0.1",
     "husky": "0.13.2",
+    "inquirer": "3.0.6",
     "ramda": "0.23.0",
     "shelljs": "0.7.7",
     "standard-version": "4.0.0"
