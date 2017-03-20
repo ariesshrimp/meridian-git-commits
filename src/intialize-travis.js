@@ -17,6 +17,11 @@ export default async () => {
       name: 'userName',
     },
     {
+      type: 'input',
+      message: 'What email is associated with this repo? (this could be an org email...)',
+      name: 'email',
+    },
+    {
       type: 'password',
       message: 'Paste in your github access token. Ill wait...',
       name: 'password',
@@ -35,8 +40,8 @@ notifications:
 script:
 - npm test
 after_success:
-- git config --global user.email "YOU@EXAMPLE.COM"
-- git config --global user.name "YOUR_NAME"
+- git config --global user.email "${userSettings.email}"
+- git config --global user.name "${userSettings.userName}"
 - "[[ $TRAVIS_PULL_REQUEST == false ]] && npm run release"
 
 branches:

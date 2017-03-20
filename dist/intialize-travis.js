@@ -48,6 +48,10 @@ exports.default = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(fun
             message: 'Whats your git hub user or organization name? (this is used to fetch the remote repo)',
             name: 'userName'
           }, {
+            type: 'input',
+            message: 'What email is associated with this repo? (this could be an org email...)',
+            name: 'email'
+          }, {
             type: 'password',
             message: 'Paste in your github access token. Ill wait...',
             name: 'password'
@@ -55,7 +59,7 @@ exports.default = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(fun
 
         case 2:
           userSettings = _context.sent;
-          travisYml = '\nlanguage: node_js\nnode_js:\n- node\ncache:\n  directories:\n  - "$HOME/.yarn-cache"\nnotifications:\n  email: false\nscript:\n- npm test\nafter_success:\n- git config --global user.email "YOU@EXAMPLE.COM"\n- git config --global user.name "YOUR_NAME"\n- "[[ $TRAVIS_PULL_REQUEST == false ]] && npm run release"\n\nbranches:\n  only:\n  - master\nenv:\n  global:\n  - GITHUB_USER_OR_ORGANIZATION_NAME=' + userSettings.userName + '\n  - REPO=' + userSettings.repo + '\n';
+          travisYml = '\nlanguage: node_js\nnode_js:\n- node\ncache:\n  directories:\n  - "$HOME/.yarn-cache"\nnotifications:\n  email: false\nscript:\n- npm test\nafter_success:\n- git config --global user.email "' + userSettings.email + '"\n- git config --global user.name "' + userSettings.userName + '"\n- "[[ $TRAVIS_PULL_REQUEST == false ]] && npm run release"\n\nbranches:\n  only:\n  - master\nenv:\n  global:\n  - GITHUB_USER_OR_ORGANIZATION_NAME=' + userSettings.userName + '\n  - REPO=' + userSettings.repo + '\n';
 
         case 4:
         case 'end':
