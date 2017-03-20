@@ -5,8 +5,10 @@ import R from 'ramda';
 import {AUTH_TOKEN} from '../config.json';
 import fs from 'fs';
 
+console.log(process.env);
+
 const options = {
-  AUTH_TOKEN,
+  AUTH_TOKEN: process.env.GH_TOKEN || AUTH_TOKEN,
   USER_NAME: 'joefraley',
   repo: {
     name: 'meridian-git-commits',
@@ -41,7 +43,9 @@ const updateRepo = async () => {
   });
 
   console.log('\nAutomatically merge request...\n');
-  const merge = await repo.mergePullRequest(number);
+  const merge = await repo.mergePullRequest(number, {
+    merge_method: 'squash',
+  });
 
   console.log('\nDelete remote release branch\n');
   const deadBranch = await repo.deleteRef(
@@ -56,6 +60,4 @@ const updateRepo = async () => {
   });
 };
 
-updateRepo();
-
-export default updateRepo;
+export default updateRepo();
