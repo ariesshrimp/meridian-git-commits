@@ -31,7 +31,9 @@ const updateRepo = async () => {
     `git commit --amend -m  "chore(release): v${packageJson.version} [skip ci]"`
   );
   shell.exec(`git rebase master`);
-  shell.exec(`git push -f origin master`);
+  shell.exec(
+    `git checkout master && git merge release-v${packageJson.version} && git push -f origin master`
+  );
 
   // console.log('\nSend new release branch up to remote...\n');
   // shell.exec(`git push origin release-v${packageJson.version}`);

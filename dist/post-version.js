@@ -65,7 +65,7 @@ var updateRepo = function () {
             _shelljs2.default.exec('git checkout -b release-v' + _package2.default.version);
             _shelljs2.default.exec('git commit --amend -m  "chore(release): v' + _package2.default.version + ' [skip ci]"');
             _shelljs2.default.exec('git rebase master');
-            _shelljs2.default.exec('git push -f origin master');
+            _shelljs2.default.exec('git checkout master && git merge release-v' + _package2.default.version + ' && git push -f origin master');
 
             // console.log('\nSend new release branch up to remote...\n');
             // shell.exec(`git push origin release-v${packageJson.version}`);
