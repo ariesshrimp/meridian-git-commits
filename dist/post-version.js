@@ -28,10 +28,14 @@ var _ramda = require('ramda');
 
 var _ramda2 = _interopRequireDefault(_ramda);
 
+var _axios = require('axios');
+
+var _axios2 = _interopRequireDefault(_axios);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var options = {
-  AUTH_TOKEN: '5e8960f32b6131689195da4c3ac13fbe4051e26b',
+  AUTH_TOKEN: 'c0d62af34f410c633773b831e3273275eddb9613',
   USER_NAME: 'joefraley',
   repo: {
     name: 'meridian-git-commits'
@@ -45,17 +49,9 @@ var headSha = _ramda2.default.compose(_ramda2.default.dropLast(1), _ramda2.defau
   return _shelljs2.default.exec('git rev-parse HEAD');
 });
 
-var repo = {
-  title: 'a',
-  head: 'joefraley:master',
-  base: 'master'
-};
-
-console.log(repo);
-
 var updateRepo = function () {
   var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
-    var gh, repo;
+    var gh, repo, newBranch, pullRequest;
     return _regenerator2.default.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
@@ -63,11 +59,31 @@ var updateRepo = function () {
             gh = new _githubApi2.default({
               token: options.AUTH_TOKEN
             });
-            repo = gh.getRepo(options.USER_NAME, options.repo.name);
-            _context.next = 4;
-            return repo.createPullRequest(repo);
+            _context.next = 3;
+            return gh.getRepo(options.USER_NAME, options.repo.name);
 
-          case 4:
+          case 3:
+            repo = _context.sent;
+            _context.next = 6;
+            return repo.createBranch('master', 'release-' + _package2.default.version);
+
+          case 6:
+            newBranch = _context.sent;
+
+
+            console.log(_package2.default.version);
+            _context.next = 10;
+            return repo.createPullRequest({
+              title: 'chore(release): ' + _package2.default.version,
+              body: 'test',
+              base: 'master',
+              head: 'release-' + _package2.default.version
+            });
+
+          case 10:
+            pullRequest = _context.sent;
+
+          case 11:
           case 'end':
             return _context.stop();
         }
