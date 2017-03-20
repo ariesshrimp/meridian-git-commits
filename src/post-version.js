@@ -19,7 +19,10 @@ const name = pipe(split('/'), last, split('.'), head)(
 const v = `v${packageJson.version}`;
 
 export default async () => {
-  const repo = await gh.getRepo(process.env.GIT_USER, name);
+  const repo = await gh.getRepo(
+    process.env.GITHUB_USER_OR_ORGANIZATION_NAME,
+    name
+  );
   const ammendRelease = exec(
     `git commit --amend -m  "chore(release): ${v} [skip ci]"`
   );

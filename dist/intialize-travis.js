@@ -41,25 +41,21 @@ exports.default = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(fun
           _context.next = 2;
           return _inquirer2.default.prompt([{
             type: 'input',
-            message: 'Whats your git hub repo url?',
+            message: 'Whats your git hub repo url? (Its easiest to use https here...)',
             name: 'repo'
+          }, {
+            type: 'input',
+            message: 'Whats your git hub user or organization name? (this is used to fetch the remote repo)',
+            name: 'userName'
           }, {
             type: 'password',
             message: 'Paste in your github access token. Ill wait...',
-            name: 'password'
-          }, {
-            type: 'password',
-            message: 'Enter your git password',
-            name: 'password'
-          }, {
-            type: 'password',
-            message: 'Enter your git password',
             name: 'password'
           }]);
 
         case 2:
           userSettings = _context.sent;
-          travisYml = '\nlanguage: node_js\nnode_js:\n- node\ncache:\n  directories:\n  - "$HOME/.yarn-cache"\nnotifications:\n  email: false\nscript:\n- npm test\nafter_success:\n- git remote rm origin\n- git config --global user.email "YOU@EXAMPLE.COM"\n- git config --global user.name "YOUR_NAME"\n- git remote add origin https://' + GIT_USER + ':' + GH_TOKEN + '@github.com/' + GIT_USER + '/' + REPO + '.git\n- "[[ $TRAVIS_PULL_REQUEST == false ]] && npm run release"\n\nbranches:\n  only:\n  - master\nenv:\n  global:\n  - REPO=' + REPO + '\n';
+          travisYml = '\nlanguage: node_js\nnode_js:\n- node\ncache:\n  directories:\n  - "$HOME/.yarn-cache"\nnotifications:\n  email: false\nscript:\n- npm test\nafter_success:\n- git config --global user.email "YOU@EXAMPLE.COM"\n- git config --global user.name "YOUR_NAME"\n- "[[ $TRAVIS_PULL_REQUEST == false ]] && npm run release"\n\nbranches:\n  only:\n  - master\nenv:\n  global:\n  - GITHUB_USER_OR_ORGANIZATION_NAME=' + userSettings.userName + '\n  - REPO=' + userSettings.repo + '\n';
 
         case 4:
         case 'end':

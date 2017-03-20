@@ -43,7 +43,7 @@ exports.default = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(fun
       switch (_context.prev = _context.next) {
         case 0:
           _context.next = 2;
-          return gh.getRepo(process.env.GIT_USER, name);
+          return gh.getRepo(process.env.GITHUB_USER_OR_ORGANIZATION_NAME, name);
 
         case 2:
           repo = _context.sent;
