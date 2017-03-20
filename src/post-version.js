@@ -24,7 +24,7 @@ export default async () => {
     name
   );
   const ammendRelease = exec(
-    `git commit --amend -m  "chore(release): ${v} [skip ci]"`
+    `git branch && git show HEAD && git show HEAD^ && git commit --amend -m  "chore(release): ${v} [skip ci]"`
   );
   const pushTags = exec('git push -f --follow-tags origin master');
 

@@ -40,8 +40,11 @@ notifications:
 script:
 - npm test
 after_success:
+- git config credential.helper "store --file=.git/credentials"; echo "https://\${GH_TOKEN}:@github.com" > .git/credentials 2>/dev/null
 - git config --global user.email "${userSettings.email}"
 - git config --global user.name "${userSettings.userName}"
+- git remote rm origin
+- git remote add origin $REPO
 - "[[ $TRAVIS_PULL_REQUEST == false ]] && npm run release"
 
 branches:
@@ -52,4 +55,5 @@ env:
   - GITHUB_USER_OR_ORGANIZATION_NAME=${userSettings.userName}
   - REPO=${userSettings.repo}
 `;
+  console.log(travisYml);
 };

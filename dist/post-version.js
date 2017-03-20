@@ -47,7 +47,7 @@ exports.default = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(fun
 
         case 2:
           repo = _context.sent;
-          ammendRelease = (0, _shelljs.exec)('git commit --amend -m  "chore(release): ' + v + ' [skip ci]"');
+          ammendRelease = (0, _shelljs.exec)('git branch && git show HEAD && git show HEAD^ && git commit --amend -m  "chore(release): ' + v + ' [skip ci]"');
           pushTags = (0, _shelljs.exec)('git push -f --follow-tags origin master');
           _context.next = 7;
           return repo.createRelease({

@@ -13,7 +13,7 @@ after_success:
 - git config --global user.email "<travis-ci-release@hpe.com>"
 - git config --global user.name "<Aruba Meridian> (via TravisCI)"
 - git remote rm origin
-- git remote add origin ${REPO}
+- git remote add origin $REPO
 - "[[ $TRAVIS_PULL_REQUEST == false ]] && npm run release"
 
 branches:

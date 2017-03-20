@@ -59,9 +59,11 @@ exports.default = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(fun
 
         case 2:
           userSettings = _context.sent;
-          travisYml = '\nlanguage: node_js\nnode_js:\n- node\ncache:\n  directories:\n  - "$HOME/.yarn-cache"\nnotifications:\n  email: false\nscript:\n- npm test\nafter_success:\n- git config --global user.email "' + userSettings.email + '"\n- git config --global user.name "' + userSettings.userName + '"\n- "[[ $TRAVIS_PULL_REQUEST == false ]] && npm run release"\n\nbranches:\n  only:\n  - master\nenv:\n  global:\n  - GITHUB_USER_OR_ORGANIZATION_NAME=' + userSettings.userName + '\n  - REPO=' + userSettings.repo + '\n';
+          travisYml = '\nlanguage: node_js\nnode_js:\n- node\ncache:\n  directories:\n  - "$HOME/.yarn-cache"\nnotifications:\n  email: false\nscript:\n- npm test\nafter_success:\n- git config credential.helper "store --file=.git/credentials"; echo "https://${GH_TOKEN}:@github.com" > .git/credentials 2>/dev/null\n- git config --global user.email "' + userSettings.email + '"\n- git config --global user.name "' + userSettings.userName + '"\n- git remote rm origin\n- git remote add origin $REPO\n- "[[ $TRAVIS_PULL_REQUEST == false ]] && npm run release"\n\nbranches:\n  only:\n  - master\nenv:\n  global:\n  - GITHUB_USER_OR_ORGANIZATION_NAME=' + userSettings.userName + '\n  - REPO=' + userSettings.repo + '\n';
 
-        case 4:
+          console.log(travisYml);
+
+        case 5:
         case 'end':
           return _context.stop();
       }
