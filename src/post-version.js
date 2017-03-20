@@ -18,14 +18,7 @@ const updateRepo = async () => {
   const url = packageJson.repository.url.split('/');
   const repo = await gh.getRepo(
     process.env.USER,
-    R.pipe(
-      R.last,
-      R.tap(console.log),
-      R.split('.'),
-      R.tap(console.log),
-      R.head,
-      R.tap(console.log)
-    )(url)
+    R.pipe(R.last, R.split('.'), R.head)(url)
   );
   const v = `v${packageJson.version}`;
   shell.exec(`git commit --amend -m  "chore(release): ${v} [skip ci]"`);
