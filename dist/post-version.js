@@ -34,75 +34,40 @@ var _fs2 = _interopRequireDefault(_fs);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var options = {
-  AUTH_TOKEN: process.env.GH_TOKEN,
-  USER_NAME: 'joefraley',
-  repo: {
-    name: 'meridian-git-commits'
-  }
-};
-
 var releaseNotes = _ramda2.default.pipe(_fs2.default.readFileSync, _ramda2.default.toString, _ramda2.default.split(/(<a name=")(\d\.\d\.\d).+(<\/a>)/gi), _ramda2.default.nth(4))('./CHANGELOG.md');
 
 var updateRepo = function () {
   var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
-    var gh, repo, release;
+    var gh, url, repo, v;
     return _regenerator2.default.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
             gh = new _githubApi2.default({
-              token: options.AUTH_TOKEN
+              token: process.env.GH_TOKEN
             });
-            _context.next = 3;
-            return gh.getRepo(options.USER_NAME, options.repo.name);
+            url = _package2.default.repository.url.split('/');
+            _context.next = 4;
+            return gh.getRepo(process.env.USER, _ramda2.default.pipe(_ramda2.default.last, _ramda2.default.split('.'), _ramda2.default.dropLast)(url));
 
-          case 3:
+          case 4:
             repo = _context.sent;
+            v = 'v' + _package2.default.version;
 
+            _shelljs2.default.exec('git commit --amend -m  "chore(release): ' + v + ' [skip ci]"');
+            _shelljs2.default.exec('git push -f --follow-tags origin master');
 
-            // console.log('\nCheckout a new release branch...\n');
-            _shelljs2.default.exec('git checkout -b release-v' + _package2.default.version);
-            _shelljs2.default.exec('git commit --amend -m  "chore(release): v' + _package2.default.version + ' [skip ci]"');
-            _shelljs2.default.exec('git rebase master');
-            _shelljs2.default.exec('git checkout master && git merge release-v' + _package2.default.version + ' && git push -f origin master');
-
-            // console.log('\nSend new release branch up to remote...\n');
-            // shell.exec(`git push origin release-v${packageJson.version}`);
-            //arstarstarstrst
-            // console.log('\nCreate a pull request to master with new version...\n');
-            // const {data: {number}} = await repo.createPullRequest({
-            //   title: `chore(release): v${packageJson.version}`,
-            //   body: releaseNotes,
-            //   base: 'master',
-            //   head: `release-v${packageJson.version}`,
-            // });
-
-            // console.log('\nAutomatically merge request...\n');
-            // const merge = await repo.mergePullRequest(number, {
-            //   merge_method: 'squash',
-            // });
-
-            // console.log('\nDelete remote release branch\n');
-            // const deadBranch = await repo.deleteRef(
-            //   `heads/release-v${packageJson.version}`
-            // );
-
-            //
-            //
-            //
-            console.log('\nAdd release notes...\n');
-            _context.next = 11;
+            _context.next = 10;
             return repo.createRelease({
-              tag_name: 'v' + _package2.default.version,
-              name: 'v' + _package2.default.version,
+              tag_name: v,
+              name: v,
               body: releaseNotes
             });
 
-          case 11:
-            release = _context.sent;
+          case 10:
+            return _context.abrupt('return', _context.sent);
 
-          case 12:
+          case 11:
           case 'end':
             return _context.stop();
         }
