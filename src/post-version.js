@@ -18,7 +18,10 @@ const name = pipe(split('/'), last, split('.'), head)(
 );
 const v = `v${packageJson.version}`;
 
-export default (async () => {
+export default async () => {
+  console.log(
+    '👍\tpost-version release process starting. ignore that message 👆'
+  );
   const repo = await gh.getRepo(
     process.env.GITHUB_USER_OR_ORGANIZATION_NAME,
     name
@@ -38,4 +41,4 @@ export default (async () => {
     body: releaseNotes(resolve(__dirname, './CHANGELOG.md')),
   };
   return await repo.createRelease(release);
-})();
+};

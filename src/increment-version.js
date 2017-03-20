@@ -48,14 +48,4 @@ const optionsFromArgs = pipe(
 
 export default () =>
   standardVersion(optionsFromArgs(process.argv), err =>
-    cond([
-      [
-        isNil,
-        () => {
-          log(
-            '👍\tpost-version release process starting. ignore that message 👆'
-          );
-        },
-      ],
-      [T, error],
-    ])(err));
+    cond([[isNil, postVersion], [T, error]])(err));
