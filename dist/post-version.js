@@ -67,4 +67,4 @@ exports.default = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(fun
       }
     }
   }, _callee, undefined);
-}))();
+}));
