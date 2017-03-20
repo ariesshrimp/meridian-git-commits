@@ -1,9 +1,8 @@
 import githubRemoveAllReleases from 'github-remove-all-releases';
 import shell from 'shelljs';
-import {AUTH_TOKEN} from '../config.json';
 const AUTH = {
   type: 'oauth',
-  token: AUTH_TOKEN,
+  token: process.env.GH_TOKEN,
 };
 
 githubRemoveAllReleases(AUTH, 'joefraley', 'meridian-git-commits', console.log);
