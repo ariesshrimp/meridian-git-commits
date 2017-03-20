@@ -11,16 +11,15 @@ const releaseNotes = R.pipe(
   R.nth(4)
 )('./CHANGELOG.md');
 
+const gh = new GitHub({
+  token: process.env.GH_TOKEN,
+});
+const url = packageJson.repository.url.split('/');
+const name = R.pipe(R.last, R.split('.'), R.head)(url);
+const v = `v${packageJson.version}`;
+
 const updateRepo = async () => {
-  const gh = new GitHub({
-    token: process.env.GH_TOKEN,
-  });
-  const url = packageJson.repository.url.split('/');
-  const repo = await gh.getRepo(
-    process.env.GIT_USER,
-    R.pipe(R.last, R.split('.'), R.head)(url)
-  );
-  const v = `v${packageJson.version}`;
+  const repo = await gh.getRepo(process.env.GIT_USER, name);
   shell.exec(`git commit --amend -m  "chore(release): ${v} [skip ci]"`);
   shell.exec(`git push -f --follow-tags origin master`);
 

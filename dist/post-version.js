@@ -36,38 +36,40 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var releaseNotes = _ramda2.default.pipe(_fs2.default.readFileSync, _ramda2.default.toString, _ramda2.default.split(/(<a name=")(\d\.\d\.\d).+(<\/a>)/gi), _ramda2.default.nth(4))('./CHANGELOG.md');
 
+var gh = new _githubApi2.default({
+  token: process.env.GH_TOKEN
+});
+var url = _package2.default.repository.url.split('/');
+var name = _ramda2.default.pipe(_ramda2.default.last, _ramda2.default.split('.'), _ramda2.default.head)(url);
+var v = 'v' + _package2.default.version;
+
 var updateRepo = function () {
   var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
-    var gh, url, repo, v;
+    var repo;
     return _regenerator2.default.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            gh = new _githubApi2.default({
-              token: process.env.GH_TOKEN
-            });
-            url = _package2.default.repository.url.split('/');
-            _context.next = 4;
-            return gh.getRepo(process.env.GIT_USER, _ramda2.default.pipe(_ramda2.default.last, _ramda2.default.split('.'), _ramda2.default.head)(url));
+            _context.next = 2;
+            return gh.getRepo(process.env.GIT_USER, name);
 
-          case 4:
+          case 2:
             repo = _context.sent;
-            v = 'v' + _package2.default.version;
 
             _shelljs2.default.exec('git commit --amend -m  "chore(release): ' + v + ' [skip ci]"');
             _shelljs2.default.exec('git push -f --follow-tags origin master');
 
-            _context.next = 10;
+            _context.next = 7;
             return repo.createRelease({
               tag_name: v,
               name: v,
               body: releaseNotes
             });
 
-          case 10:
+          case 7:
             return _context.abrupt('return', _context.sent);
 
-          case 11:
+          case 8:
           case 'end':
             return _context.stop();
         }
