@@ -48,7 +48,7 @@ var updateRepo = function () {
             });
             url = _package2.default.repository.url.split('/');
             _context.next = 4;
-            return gh.getRepo(process.env.USER, _ramda2.default.pipe(_ramda2.default.last, _ramda2.default.split('.'), _ramda2.default.head)(url));
+            return gh.getRepo(process.env.GIT_USER, _ramda2.default.pipe(_ramda2.default.last, _ramda2.default.split('.'), _ramda2.default.head)(url));
 
           case 4:
             repo = _context.sent;

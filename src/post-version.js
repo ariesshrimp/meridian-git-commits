@@ -17,7 +17,7 @@ const updateRepo = async () => {
   });
   const url = packageJson.repository.url.split('/');
   const repo = await gh.getRepo(
-    process.env.USER,
+    process.env.GIT_USER,
     R.pipe(R.last, R.split('.'), R.head)(url)
   );
   const v = `v${packageJson.version}`;
