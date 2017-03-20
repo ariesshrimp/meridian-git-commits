@@ -30,8 +30,6 @@ const updateRepo = async () => {
     head: `release-${packageJson.version}`,
   });
 
-  // console.log(pullRequest);
-
   const merge = await repo.mergePullRequest(number);
   const release = async () =>
     await repo.createRelease({
