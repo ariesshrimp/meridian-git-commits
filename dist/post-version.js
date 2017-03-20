@@ -48,23 +48,25 @@ exports.default = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(fun
         case 2:
           repo = _context.sent;
           ammendRelease = (0, _shelljs.exec)('git branch && git show HEAD && git log -1 && git commit --amend -m  "chore(release): ' + v + ' [skip ci]"');
-          currentBranch = (0, _shelljs.exec)('git rev-parse --abbrev-ref HEAD');
+          currentBranch = (0, _shelljs.exec)('git rev-parse --abbrev-ref HEAD').toString().trim();
+
+          console.log(currentBranch);
           pushTags = (0, _shelljs.exec)('git push -f --follow-tags origin ' + currentBranch + ':master');
           release = {
             tag_name: v,
             name: v,
             body: releaseNotes((0, _path.resolve)(__dirname, './CHANGELOG.md'))
           };
-          _context.next = 9;
+          _context.next = 10;
           return repo.createRelease(release);
 
-        case 9:
+        case 10:
           return _context.abrupt('return', _context.sent);
 
-        case 10:
+        case 11:
         case 'end':
           return _context.stop();
       }
     }
   }, _callee, undefined);
-}));
+}))();
