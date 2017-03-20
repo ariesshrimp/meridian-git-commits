@@ -43,6 +43,11 @@ const updateRepo = async () => {
   console.log('\nAutomatically merge request...\n');
   const merge = await repo.mergePullRequest(number);
 
+  console.log('\nDelete remote release branch\n');
+  const deadBranch = await repo.deleteRef(
+    `heads/release-v${packageJson.version}`
+  );
+
   console.log('\nAdd release notes...\n');
   const release = await repo.createRelease({
     tag_name: 'v' + packageJson.version,
