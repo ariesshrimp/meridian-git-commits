@@ -42,7 +42,7 @@ exports.default = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(fun
     while (1) {
       switch (_context.prev = _context.next) {
         case 0:
-          log('👍\tpost-version release process starting. ignore that message 👆');
+          console.log('👍\tpost-version release process starting. ignore that message 👆');
           _context.next = 3;
           return gh.getRepo(process.env.GITHUB_USER_OR_ORGANIZATION_NAME, name);
 
