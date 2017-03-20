@@ -36,8 +36,10 @@ var _fs2 = _interopRequireDefault(_fs);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+console.log(process.env);
+
 var options = {
-  AUTH_TOKEN: _config.AUTH_TOKEN,
+  AUTH_TOKEN: process.env.GH_TOKEN || _config.AUTH_TOKEN,
   USER_NAME: 'joefraley',
   repo: {
     name: 'meridian-git-commits'
@@ -86,7 +88,9 @@ var updateRepo = function () {
 
             console.log('\nAutomatically merge request...\n');
             _context.next = 16;
-            return repo.mergePullRequest(number);
+            return repo.mergePullRequest(number, {
+              merge_method: 'squash'
+            });
 
           case 16:
             merge = _context.sent;
@@ -124,6 +128,4 @@ var updateRepo = function () {
   };
 }();
 
-updateRepo();
-
-exports.default = updateRepo;
+exports.default = updateRepo();
