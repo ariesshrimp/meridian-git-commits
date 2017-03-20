@@ -46,9 +46,16 @@ const optionsFromArgs = pipe(
   tap(log)
 );
 
-// standardVersion(optionsFromArgs(process.argv), err =>
-//   cond([[isNil, x => log('post-version release process')], [T, error]])(err));
-
 export default () =>
   standardVersion(optionsFromArgs(process.argv), err =>
-    cond([[isNil, x => log('post-version release process')], [T, error]])(err));
+    cond([
+      [
+        isNil,
+        () => {
+          log(
+            '👍\tpost-version release process starting. ignore that message 👆'
+          );
+        },
+      ],
+      [T, error],
+    ])(err));

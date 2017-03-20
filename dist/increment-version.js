@@ -37,13 +37,10 @@ var defaults = {
 };
 var optionsFromArgs = (0, _ramda.pipe)((0, _ramda.drop)(2), (0, _ramda.partition)((0, _ramda.contains)('--')), zipFromPartition([(0, _ramda.compose)(stripDashes, _ramda.head), _ramda.last]), (0, _ramda.merge)(defaults), (0, _ramda.tap)(log));
 
-// standardVersion(optionsFromArgs(process.argv), err =>
-//   cond([[isNil, x => log('post-version release process')], [T, error]])(err));
-
 exports.default = function () {
   return (0, _standardVersion2.default)(optionsFromArgs(process.argv), function (err) {
-    return (0, _ramda.cond)([[_ramda.isNil, function (x) {
-      return log('post-version release process');
+    return (0, _ramda.cond)([[_ramda.isNil, function () {
+      log('👍\tpost-version release process starting. ignore that message 👆');
     }], [_ramda.T, error]])(err);
   });
 };
