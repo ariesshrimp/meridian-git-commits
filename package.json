@@ -16,7 +16,7 @@
   "scripts": {
     "commit": "git cz",
     "test": "echo 'test'",
-    "release": "standard-version"
+    "release": "standard-version && git push --follow-tags origin master"
   },
   "repository": {
     "type": "git",
