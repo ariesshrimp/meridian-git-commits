@@ -28,8 +28,6 @@ var _ramda = require('ramda');
 
 var _ramda2 = _interopRequireDefault(_ramda);
 
-var _config = require('../config.json');
-
 var _fs = require('fs');
 
 var _fs2 = _interopRequireDefault(_fs);
@@ -39,7 +37,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 console.log(process.env);
 
 var options = {
-  AUTH_TOKEN: process.env.GH_TOKEN || _config.AUTH_TOKEN,
+  AUTH_TOKEN: process.env.GH_TOKEN,
   USER_NAME: 'joefraley',
   repo: {
     name: 'meridian-git-commits'
