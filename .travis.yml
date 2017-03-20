@@ -13,7 +13,7 @@ after_success:
 - git config --global user.name "<org> (via TravisCI)"
 - git remote rm origin
 - git remote add origin https://${USER}:${GH_TOKEN}@github.com/${USER}/${REPO}.git
-- "[[ $TRAVIS_PULL_REQUEST == “false” ]] && npm run release"
+- "[[ $TRAVIS_PULL_REQUEST == false ]] && npm run release"
 
 branches:
   only:
