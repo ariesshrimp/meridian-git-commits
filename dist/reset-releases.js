@@ -8,13 +8,11 @@ var _shelljs = require('shelljs');
 
 var _shelljs2 = _interopRequireDefault(_shelljs);
 
-var _config = require('../config.json');
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var AUTH = {
   type: 'oauth',
-  token: _config.AUTH_TOKEN
+  token: process.env.GH_TOKEN
 };
 
 (0, _githubRemoveAllReleases2.default)(AUTH, 'joefraley', 'meridian-git-commits', console.log);
