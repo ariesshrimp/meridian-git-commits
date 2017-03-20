@@ -69,7 +69,7 @@ var updateRepo = function () {
 
             // console.log('\nSend new release branch up to remote...\n');
             // shell.exec(`git push origin release-v${packageJson.version}`);
-
+            //arstarstarstrst
             // console.log('\nCreate a pull request to master with new version...\n');
             // const {data: {number}} = await repo.createPullRequest({
             //   title: `chore(release): v${packageJson.version}`,
