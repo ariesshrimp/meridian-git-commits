@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+  - node
+cache:
+  directories:
+    - $HOME/.yarn-cache
+notifications:
+  email: false
+script:
+  - npm test
+after_success:
+  - npm run semantic-release
+branches:
+  only:
+    - master
