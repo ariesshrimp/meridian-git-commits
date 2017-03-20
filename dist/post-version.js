@@ -28,18 +28,14 @@ var _ramda = require('ramda');
 
 var _ramda2 = _interopRequireDefault(_ramda);
 
-var _config = require('../config.json');
-
 var _fs = require('fs');
 
 var _fs2 = _interopRequireDefault(_fs);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-console.log(process.env);
-
 var options = {
-  AUTH_TOKEN: process.env.GH_TOKEN || _config.AUTH_TOKEN,
+  AUTH_TOKEN: process.env.GH_TOKEN,
   USER_NAME: 'joefraley',
   repo: {
     name: 'meridian-git-commits'
@@ -68,12 +64,13 @@ var updateRepo = function () {
 
             console.log('\nCheckout a new release branch...\n');
             _shelljs2.default.exec('git checkout -b release-v' + _package2.default.version);
+            _shelljs2.default.exec('git commit --amend -m  "chore(release): v' + _package2.default.version + ' [skip ci]"');
 
-            console.log('\nSend new release tags up to remote...\n');
-            _shelljs2.default.exec('git push --follow-tags origin release-v' + _package2.default.version);
+            console.log('\nSend new release branch up to remote...\n');
+            _shelljs2.default.exec('git push origin release-v' + _package2.default.version);
 
             console.log('\nCreate a pull request to master with new version...\n');
-            _context.next = 11;
+            _context.next = 12;
             return repo.createPullRequest({
               title: 'chore(release): v' + _package2.default.version,
               body: releaseNotes,
@@ -81,41 +78,41 @@ var updateRepo = function () {
               head: 'release-v' + _package2.default.version
             });
 
-          case 11:
+          case 12:
             _ref2 = _context.sent;
             number = _ref2.data.number;
 
 
             console.log('\nAutomatically merge request...\n');
-            _context.next = 16;
+            _context.next = 17;
             return repo.mergePullRequest(number, {
               merge_method: 'squash'
             });
 
-          case 16:
+          case 17:
             merge = _context.sent;
 
 
             console.log('\nDelete remote release branch\n');
-            _context.next = 20;
+            _context.next = 21;
             return repo.deleteRef('heads/release-v' + _package2.default.version);
 
-          case 20:
+          case 21:
             deadBranch = _context.sent;
 
 
             console.log('\nAdd release notes...\n');
-            _context.next = 24;
+            _context.next = 25;
             return repo.createRelease({
               tag_name: 'v' + _package2.default.version,
               name: 'v' + _package2.default.version,
               body: releaseNotes
             });
 
-          case 24:
+          case 25:
             release = _context.sent;
 
-          case 25:
+          case 26:
           case 'end':
             return _context.stop();
         }
