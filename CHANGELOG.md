@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.0.0"></a>
+# [3.0.0](https://github.com/joefraley/meridian-git-commits/compare/v1.0.1...v3.0.0) (2017-03-20)
+
+
+### Bug Fixes
+
+* **travis:** correct github credentials ([f14289b](https://github.com/joefraley/meridian-git-commits/commit/f14289b))
+* **travis:** make auto build work ([5ffbe01](https://github.com/joefraley/meridian-git-commits/commit/5ffbe01))
+
+
+### Features
+
+* **aarstarst:** artarstrsat ([edfbdd3](https://github.com/joefraley/meridian-git-commits/commit/edfbdd3))
+* **arstars:** tdqpdqd ([9addd5c](https://github.com/joefraley/meridian-git-commits/commit/9addd5c))
+
+
+### BREAKING CHANGES
+
+* **arstars:** wfgpwfpgwfpg
+* **aarstarst:** aarsrat | artarts | arstarstat | arstarsttr
+
+
+
 <a name="2.0.0"></a>
 # [2.0.0](https://github.com/joefraley/meridian-git-commits/compare/v1.0.1...v2.0.0) (2017-03-20)
 
