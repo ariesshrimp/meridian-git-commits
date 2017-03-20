@@ -41,7 +41,8 @@ script:
 - npm test
 after_success:
 - git remote rm origin
-- git remote add origin https://${GIT_USER}:${GH_TOKEN}@github.com/${GIT_USER}/${REPO}.git
+- git config --global user.email "YOU@EXAMPLE.COM"
+- git config --global user.name "YOUR_NAME"
 - "[[ $TRAVIS_PULL_REQUEST == false ]] && npm run release"
 
 branches:
