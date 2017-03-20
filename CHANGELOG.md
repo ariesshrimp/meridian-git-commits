@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.0.2"></a>
+## [1.0.2](https://github.com/joefraley/meridian-git-commits/compare/v1.0.1...v1.0.2) (2017-03-20)
+
+
+### Bug Fixes
+
+* **travis:** correct github credentials ([267d0f4](https://github.com/joefraley/meridian-git-commits/commit/267d0f4))
+* **travis:** make auto build work ([bb9a50a](https://github.com/joefraley/meridian-git-commits/commit/bb9a50a))
+
+
+
 <a name="1.0.1"></a>
 ## [1.0.1](https://github.com/joefraley/meridian-git-commits/compare/v1.0.0...v1.0.1) (2017-03-20)
 
