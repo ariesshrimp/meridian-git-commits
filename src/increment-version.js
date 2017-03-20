@@ -55,6 +55,7 @@ export default () =>
           log(
             '👍\tpost-version release process starting. ignore that message 👆'
           );
+          postVersion();
         },
       ],
       [T, error],

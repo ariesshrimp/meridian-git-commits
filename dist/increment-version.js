@@ -41,6 +41,7 @@ exports.default = function () {
   return (0, _standardVersion2.default)(optionsFromArgs(process.argv), function (err) {
     return (0, _ramda.cond)([[_ramda.isNil, function () {
       log('👍\tpost-version release process starting. ignore that message 👆');
+      (0, _postVersion2.default)();
     }], [_ramda.T, error]])(err);
   });
 };
