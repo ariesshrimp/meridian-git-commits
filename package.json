@@ -21,8 +21,7 @@
     "commit": "git cz",
     "start": "babel src --watch --out-dir dist --presets=es2015,stage-0 --plugins=transform-runtime",
     "test": "echo 'test'",
-    "release": "standard-version && node dist/post-version.js",
-    "reset": "rm CHANGELOG.md && node dist/reset-releases.js && rm -rf .git && git init && git remote add origin git@github.com:joefraley/meridian-git-commits.git"
+    "release": "standard-version && node dist/post-version.js"
   },
   "repository": {
     "type": "git",
