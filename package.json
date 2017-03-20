@@ -1,6 +1,6 @@
 {
   "name": "cz-meridian",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A standard commit validator for Meridian projects.",
   "main": "index.js",
   "license": "MIT",
@@ -20,7 +20,7 @@
     "commit": "git cz",
     "build": "babel src --watch --out-dir dist --presets=es2015,stage-0 --plugins=transform-runtime",
     "test": "git log",
-    "release": "standard-version",
+    "release": "standard-version && node dist/post-version.js && git checkout - && git pull --rebase",
     "reset": "rm CHANGELOG.md && node dist/reset-releases.js && rm -rf .git && git init && git remote add origin git@github.com:joefraley/meridian-git-commits.git"
   },
   "repository": {

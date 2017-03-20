@@ -46,10 +46,6 @@ var options = {
 
 var releaseNotes = _ramda2.default.pipe(_fs2.default.readFileSync, _ramda2.default.toString, _ramda2.default.split(/(<a name=")(\d\.\d\.\d).+(<\/a>)/gi), _ramda2.default.nth(4))('./CHANGELOG.md');
 
-var headSha = _ramda2.default.compose(_ramda2.default.dropLast(1), _ramda2.default.trim, function () {
-  return _shelljs2.default.exec('git rev-parse HEAD');
-});
-
 var updateRepo = function () {
   var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
     var gh, repo, _ref2, number, merge, release;
@@ -69,18 +65,18 @@ var updateRepo = function () {
 
 
             console.log('\nCheckout a new release branch...\n');
-            _shelljs2.default.exec('git checkout -b release-' + _package2.default.version);
+            _shelljs2.default.exec('git checkout -b release-v' + _package2.default.version);
 
             console.log('\nSend new release tags up to remote...\n');
-            _shelljs2.default.exec('git push --follow-tags origin release-' + _package2.default.version);
+            _shelljs2.default.exec('git push --follow-tags origin release-v' + _package2.default.version);
 
             console.log('\nCreate a pull request to master with new version...\n');
             _context.next = 11;
             return repo.createPullRequest({
-              title: 'chore(release): ' + _package2.default.version,
+              title: 'chore(release): v' + _package2.default.version,
               body: releaseNotes,
               base: 'master',
-              head: 'release-' + _package2.default.version
+              head: 'release-v' + _package2.default.version
             });
 
           case 11:
@@ -97,13 +93,17 @@ var updateRepo = function () {
 
 
             console.log('\nAdd release notes...\n');
-            release = repo.createRelease({
-              tag_name: _package2.default.version,
-              name: _package2.default.version,
+            _context.next = 20;
+            return repo.createRelease({
+              tag_name: 'v' + _package2.default.version,
+              name: 'v' + _package2.default.version,
               body: releaseNotes
             });
 
-          case 19:
+          case 20:
+            release = _context.sent;
+
+          case 21:
           case 'end':
             return _context.stop();
         }
