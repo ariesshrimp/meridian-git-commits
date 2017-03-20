@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.0.0"></a>
+# 0.0.0 (2017-03-20)
+
+
+### Features
+
+* **releases:** initial commit ([4bf394b](https://github.com/joefraley/meridian-git-commits/commit/4bf394b))
+
+
+
 <a name="1.0.0"></a>
 # 1.0.0 (2017-03-20)
 
