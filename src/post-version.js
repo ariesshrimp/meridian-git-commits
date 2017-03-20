@@ -29,7 +29,6 @@ export default (async () => {
   const currentBranch = exec('git rev-parse --abbrev-ref HEAD')
     .toString()
     .trim();
-  console.log(currentBranch);
   const pushTags = exec(
     `git push -f --follow-tags origin ${currentBranch}:master`
   );
