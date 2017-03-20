@@ -23,7 +23,7 @@ const updateRepo = async () => {
       R.tap(console.log),
       R.split('.'),
       R.tap(console.log),
-      R.dropLast,
+      R.head,
       R.tap(console.log)
     )(url)
   );
