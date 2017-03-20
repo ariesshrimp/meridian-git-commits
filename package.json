@@ -1,11 +1,12 @@
 {
   "name": "cz-meridian",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "A standard commit validator for Meridian projects.",
   "main": "index.js",
   "license": "MIT",
   "bin": "index.js",
   "dependencies": {
+    "axios": "0.15.3",
     "babel-eslint": "7.1.1",
     "commitizen": "2.9.6",
     "conventional-github-releaser": "1.1.3",
