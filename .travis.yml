@@ -6,6 +6,8 @@ cache:
   - "$HOME/.yarn-cache"
 notifications:
   email: false
+before_script:
+- "echo pull request ? $TRAVIS_PULL_REQUEST"
 script:
 - npm test
 after_success:
