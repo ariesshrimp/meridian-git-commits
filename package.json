@@ -1,6 +1,6 @@
 {
   "name": "cz-meridian",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A standard commit validator for Meridian projects.",
   "main": "index.js",
   "license": "MIT",
