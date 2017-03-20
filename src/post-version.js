@@ -2,7 +2,6 @@ import GitHub from 'github-api';
 import shell from 'shelljs';
 import packageJson from '../package.json';
 import R from 'ramda';
-import $ from 'axios';
 
 const options = {
   AUTH_TOKEN: '0bc72ec5d87a64dda8a2b1be42a1225870cf606c',
