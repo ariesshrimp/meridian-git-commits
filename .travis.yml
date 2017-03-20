@@ -12,6 +12,7 @@ after_success:
 - git config credential.helper "store --file=.git/credentials"; echo "https://${GH_TOKEN}:@github.com" > .git/credentials 2>/dev/null
 - git config --global user.email "<travis-ci-release@hpe.com>"
 - git config --global user.name "<Aruba Meridian> (via TravisCI)"
+- git remote -v
 - git remote rm origin
 - git remote add origin $REPO
 - "[[ $TRAVIS_PULL_REQUEST == false ]] && npm run release"
