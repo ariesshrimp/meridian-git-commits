@@ -24,7 +24,7 @@
     "build": "babel src --watch --out-dir dist --presets=es2015,stage-0 --plugins=transform-runtime",
     "test": "git log",
     "release": "standard-version",
-    "reset": "node dist/reset-releases.js"
+    "reset": "rm CHANGELOG.md && node dist/reset-releases.js"
   },
   "repository": {
     "type": "git",

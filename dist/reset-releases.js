@@ -17,7 +17,6 @@ var AUTH = {
   token: _config.AUTH_TOKEN
 };
 
-_shelljs2.default.exec('rm ../CHANGELOG.md');
 (0, _githubRemoveAllReleases2.default)(AUTH, 'joefraley', 'meridian-git-commits', console.log);
 
 // @see https://gist.github.com/okunishinishi/9424779

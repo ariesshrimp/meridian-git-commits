@@ -6,7 +6,6 @@ const AUTH = {
   token: AUTH_TOKEN,
 };
 
-shell.exec('rm ../CHANGELOG.md');
 githubRemoveAllReleases(AUTH, 'joefraley', 'meridian-git-commits', console.log);
 
 // @see https://gist.github.com/okunishinishi/9424779
