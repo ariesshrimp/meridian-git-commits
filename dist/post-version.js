@@ -16,15 +16,11 @@ var _githubApi = require('github-api');
 
 var _githubApi2 = _interopRequireDefault(_githubApi);
 
-var _shelljs = require('shelljs');
-
 var _package = require('../package.json');
 
 var _package2 = _interopRequireDefault(_package);
 
 var _ramda = require('ramda');
-
-var _semver = require('semver');
 
 var _fs = require('fs');
 
