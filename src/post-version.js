@@ -1,26 +1,6 @@
 import GitHub from 'github-api';
-import {exec} from 'shelljs';
 import packageJson from '../package.json';
-import {
-  compose,
-  complement,
-  cond,
-  converge,
-  curry,
-  equals,
-  head,
-  identity,
-  last,
-  nth,
-  not,
-  pipe,
-  split,
-  T,
-  tap,
-  toString,
-  trim,
-} from 'ramda';
-import {lte, lt, gte, gt, clean} from 'semver';
+import {head, last, pipe, split} from 'ramda';
 import {readFileSync} from 'fs';
 import {resolve} from 'path';
 const {log} = console;
