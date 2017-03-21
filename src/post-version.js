@@ -3,9 +3,7 @@ import {exec} from 'shelljs';
 const {log} = console;
 
 export default async () => {
-  exec(
-    'git push --force --follow-tags origin `git branch | grep \* | cut -d " " -f2-`:master'
-  );
+  await exec(`git push --force --follow-tags origin HEAD:master`);
   return await conventionalGithubReleaser(
     {type: 'oauth', token: process.env.GH_TOKEN},
     {preset: 'angular'},
