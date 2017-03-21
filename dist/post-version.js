@@ -32,7 +32,7 @@ var _console = console,
     log = _console.log;
 
 
-var releaseNotes = (0, _ramda.pipe)(_fs.readFileSync, _ramda.toString, (0, _ramda.split)(/(<a name=")(\d\.\d\.\d).+(<\/a>)/gi), (0, _ramda.nth)(4));
+var releaseNotes = (0, _ramda.pipe)(_fs.readFileSync, toString, (0, _ramda.split)(/(<a name=")(\d\.\d\.\d).+(<\/a>)/gi), nth(4));
 
 var gh = new _githubApi2.default({ token: process.env.GH_TOKEN });
 var name = (0, _ramda.pipe)((0, _ramda.split)('/'), _ramda.last, (0, _ramda.split)('.'), _ramda.head);
