@@ -23,8 +23,7 @@ var _package2 = _interopRequireDefault(_package);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var _console = console,
-    error = _console.error,
-    log = _console.log;
+    error = _console.error;
 
 
 var stripDashes = (0, _ramda.map)((0, _ramda.replace)('--', ''));
@@ -33,7 +32,7 @@ var zipFromPartition = (0, _ramda.converge)(_ramda.zipObj);
 
 var defaults = {
   infile: (0, _path.resolve)(__dirname, '../CHANGELOG.md'),
-  message: 'chore(release): %s [skip ci]',
+  message: 'chore(release): [skip ci] %s',
   firstRelease: false,
   sign: false,
   noVerify: false,

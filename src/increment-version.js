@@ -1,31 +1,25 @@
 import standardVersion from 'standard-version';
 import {resolve} from 'path';
 import {
-  complement,
   compose,
   cond,
   contains,
   converge,
   drop,
-  F,
   head,
-  is,
   isNil,
   last,
   map,
   merge,
-  nth,
   partition,
   pipe,
   replace,
   T,
-  tap,
   zipObj,
-  ifElse,
 } from 'ramda';
 import postVersion from './post-version';
 import packageJson from '../package.json';
-const {error, log} = console;
+const {error} = console;
 
 const stripDashes = map(replace('--', ''));
 
@@ -33,7 +27,7 @@ const zipFromPartition = converge(zipObj);
 
 const defaults = {
   infile: resolve(__dirname, '../CHANGELOG.md'),
-  message: 'chore(release): %s [skip ci]',
+  message: 'chore(release): [skip ci] %s',
   firstRelease: false,
   sign: false,
   noVerify: false,
