@@ -51,6 +51,7 @@ var defaults = _ramda2.default.merge({
   firstRelease: options.firstRelease || false,
   message: options.message
 });
+// arstarsst
 
 exports.default = function () {
   return (0, _standardVersion2.default)(defaults, handleError);
