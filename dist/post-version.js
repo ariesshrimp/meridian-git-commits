@@ -30,42 +30,53 @@ var _path = require('path');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var _console = console,
+    log = _console.log;
+
 var releaseNotes = (0, _ramda.pipe)(_fs.readFileSync, _ramda.toString, (0, _ramda.split)(/(<a name=")(\d\.\d\.\d).+(<\/a>)/gi), (0, _ramda.nth)(4));
 
 var gh = new _githubApi2.default({ token: process.env.GH_TOKEN });
 var name = (0, _ramda.pipe)((0, _ramda.split)('/'), _ramda.last, (0, _ramda.split)('.'), _ramda.head)(_package2.default.repository.url);
 var v = 'v' + _package2.default.version;
 
-exports.default = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
-  var repo, ammendRelease, currentBranch, pushTags, release;
-  return _regenerator2.default.wrap(function _callee$(_context) {
-    while (1) {
-      switch (_context.prev = _context.next) {
-        case 0:
-          console.log('👍\tpost-version release process starting. ignore that message 👆');
-          _context.next = 3;
-          return gh.getRepo(process.env.GITHUB_USER_OR_ORGANIZATION_NAME, name);
+var release = function () {
+  var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
+    var repo, ammendRelease, currentBranch, pushTags, release;
+    return _regenerator2.default.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            log('👌\tpost-version release process starting. ignore that message 👆');
+            _context.next = 3;
+            return gh.getRepo(process.env.GITHUB_USER_OR_ORGANIZATION_NAME, name);
 
-        case 3:
-          repo = _context.sent;
-          ammendRelease = (0, _shelljs.exec)('git branch && git show HEAD && git log -1 && git commit --amend -m  "chore(release): ' + v + ' [skip ci]"');
-          currentBranch = (0, _shelljs.exec)('git rev-parse --abbrev-ref HEAD').toString().trim();
-          pushTags = (0, _shelljs.exec)('git push -f --follow-tags origin ' + currentBranch + ':master');
-          release = {
-            tag_name: v,
-            name: v,
-            body: releaseNotes((0, _path.resolve)(__dirname, './CHANGELOG.md'))
-          };
-          _context.next = 10;
-          return repo.createRelease(release);
+          case 3:
+            repo = _context.sent;
+            ammendRelease = (0, _shelljs.exec)('git log -1 && git commit --amend -m  "chore(release): ' + v + ' [skip ci]"');
+            currentBranch = (0, _shelljs.exec)('git rev-parse --abbrev-ref HEAD').toString().trim();
+            pushTags = (0, _shelljs.exec)('git push -f --follow-tags origin ' + currentBranch + ':master');
+            release = {
+              tag_name: v,
+              name: v,
+              body: releaseNotes((0, _path.resolve)(__dirname, './CHANGELOG.md'))
+            };
+            _context.next = 10;
+            return repo.createRelease(release);
 
-        case 10:
-          return _context.abrupt('return', _context.sent);
+          case 10:
+            return _context.abrupt('return', _context.sent);
 
-        case 11:
-        case 'end':
-          return _context.stop();
+          case 11:
+          case 'end':
+            return _context.stop();
+        }
       }
-    }
-  }, _callee, undefined);
-}));
+    }, _callee, undefined);
+  }));
+
+  return function release() {
+    return _ref.apply(this, arguments);
+  };
+}();
+
+exports.default = (0, _ramda.cond)([[(0, _ramda.equals)(v), release], [_ramda.T, log.bind('\u274C\tnot incrementing from ' + v)]]);

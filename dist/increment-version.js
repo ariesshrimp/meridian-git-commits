@@ -16,6 +16,10 @@ var _postVersion = require('./post-version');
 
 var _postVersion2 = _interopRequireDefault(_postVersion);
 
+var _package = require('../package.json');
+
+var _package2 = _interopRequireDefault(_package);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var _console = console,
@@ -37,9 +41,12 @@ var defaults = {
 };
 
 var optionsFromArgs = (0, _ramda.pipe)((0, _ramda.drop)(2), (0, _ramda.partition)((0, _ramda.contains)('--')), zipFromPartition([(0, _ramda.compose)(stripDashes, _ramda.head), _ramda.last]), (0, _ramda.merge)(defaults));
+var beforeVersion = _package2.default.repository.url;
 
 exports.default = function () {
   return (0, _standardVersion2.default)(optionsFromArgs(process.argv), function (err) {
-    return (0, _ramda.cond)([[_ramda.isNil, _postVersion2.default], [_ramda.T, error]])(err);
+    return (0, _ramda.cond)([[_ramda.isNil, function () {
+      return (0, _postVersion2.default)(beforeVersion);
+    }], [_ramda.T, error]])(err);
   });
 };

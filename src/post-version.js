@@ -1,10 +1,10 @@
 import GitHub from 'github-api';
 import {exec} from 'shelljs';
 import packageJson from '../package.json';
-import {pipe, last, split, head, toString, nth} from 'ramda';
+import {pipe, last, split, head, toString, nth, cond, equals, T} from 'ramda';
 import {readFileSync} from 'fs';
 import {resolve} from 'path';
-
+const {log} = console;
 const releaseNotes = pipe(
   readFileSync,
   toString,
@@ -18,16 +18,14 @@ const name = pipe(split('/'), last, split('.'), head)(
 );
 const v = `v${packageJson.version}`;
 
-export default async () => {
-  console.log(
-    '👍\tpost-version release process starting. ignore that message 👆'
-  );
+const release = async () => {
+  log('👌\tpost-version release process starting. ignore that message 👆');
   const repo = await gh.getRepo(
     process.env.GITHUB_USER_OR_ORGANIZATION_NAME,
     name
   );
   const ammendRelease = exec(
-    `git branch && git show HEAD && git log -1 && git commit --amend -m  "chore(release): ${v} [skip ci]"`
+    `git log -1 && git commit --amend -m  "chore(release): ${v} [skip ci]"`
   );
   const currentBranch = exec('git rev-parse --abbrev-ref HEAD')
     .toString()
@@ -42,3 +40,8 @@ export default async () => {
   };
   return await repo.createRelease(release);
 };
+
+export default cond([
+  [equals(v), release],
+  [T, log.bind(`❌\tnot incrementing from ${v}`)],
+]);

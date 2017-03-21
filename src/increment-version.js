@@ -25,6 +25,7 @@ import {
 } from 'ramda';
 import postVersion from './post-version';
 const {error, log} = console;
+import packageJson from '../package.json';
 
 const stripDashes = map(replace('--', ''));
 const zipFromPartition = converge(zipObj);
@@ -45,7 +46,8 @@ const optionsFromArgs = pipe(
   zipFromPartition([compose(stripDashes, head), last]),
   merge(defaults)
 );
+const beforeVersion = packageJson.repository.url;
 
 export default () =>
   standardVersion(optionsFromArgs(process.argv), err =>
-    cond([[isNil, postVersion], [T, error]])(err));
+    cond([[isNil, () => postVersion(beforeVersion)], [T, error]])(err));
