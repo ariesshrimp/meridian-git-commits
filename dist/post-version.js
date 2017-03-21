@@ -23,6 +23,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var _console = console,
     log = _console.log;
 exports.default = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
+  var currentBranch;
   return _regenerator2.default.wrap(function _callee$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
