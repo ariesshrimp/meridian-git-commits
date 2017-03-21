@@ -1,33 +1,12 @@
-import GitHub from 'github-api';
-import packageJson from '../package.json';
-import {head, last, pipe, split, nth, toString} from 'ramda';
-import {readFileSync} from 'fs';
-import {resolve} from 'path';
+import conventionalGithubReleaser from 'conventional-github-releaser';
+import {exec} from 'shelljs';
 const {log} = console;
 
-const releaseNotes = pipe(
-  readFileSync,
-  toString,
-  split(/(<a name=")(\d\.\d\.\d).+(<\/a>)/gi),
-  nth(4)
-);
-
-const gh = new GitHub({token: process.env.GH_TOKEN});
-const name = pipe(split('/'), last, split('.'), head);
-const currentVersion = () => require('../package.json').version;
-
 export default async () => {
-  log('👌 post-version release process starting. ignore that message 👆');
-  const repo = await gh.getRepo(
-    process.env.GITHUB_USER_OR_ORGANIZATION_NAME,
-    name(packageJson.repository.url)
+  exec('git push --follow-tags origin master');
+  return await conventionalGithubReleaser(
+    {type: 'oauth', token: process.env.GH_TOKEN},
+    {preset: 'angular'},
+    log
   );
-
-  const release = {
-    tag_name: `v${currentVersion()}`,
-    name: `v${currentVersion()}`,
-    body: releaseNotes(resolve(__dirname, '../CHANGELOG.md')),
-  };
-
-  return await repo.createRelease(release);
 };

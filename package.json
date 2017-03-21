@@ -24,8 +24,7 @@
     "commit": "git cz",
     "start": "babel src --watch --out-dir dist --presets=es2015,stage-0 --plugins=transform-runtime",
     "test": "echo 'test'",
-    "release": "node dist/index.js",
-    "standard": "standard-version"
+    "release": "node dist/index.js"
   },
   "repository": {
     "type": "git",
