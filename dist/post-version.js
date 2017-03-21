@@ -28,18 +28,17 @@ exports.default = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(fun
     while (1) {
       switch (_context.prev = _context.next) {
         case 0:
-          currentBranch = (0, _shelljs.exec)('git branch | grep \* | cut -d " " -f2-').toString().trim();
-          _context.next = 3;
-          return (0, _shelljs.exec)('git push --force --follow-tags origin ' + currentBranch + ':master');
+          _context.next = 2;
+          return (0, _shelljs.exec)('git push --force --follow-tags origin HEAD:master');
 
-        case 3:
-          _context.next = 5;
+        case 2:
+          _context.next = 4;
           return (0, _conventionalGithubReleaser2.default)({ type: 'oauth', token: process.env.GH_TOKEN }, { preset: 'angular' }, log);
 
-        case 5:
+        case 4:
           return _context.abrupt('return', _context.sent);
 
-        case 6:
+        case 5:
         case 'end':
           return _context.stop();
       }
