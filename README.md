@@ -4,6 +4,7 @@
 Standard automated release notes and deployment!
 
 ## Install
+`yarn add @meridian/semantic-release`
 
 ## Use
 
