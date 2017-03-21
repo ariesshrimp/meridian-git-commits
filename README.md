@@ -7,9 +7,11 @@ Standard automated release notes and deployment!
 `yarn add @meridian/semantic-release`
 
 ## Use
+
 ```json
 {
-  "scripts":""
+  "scripts":{
+    "release": "@meridian/semantic-release"
 }
 ```
 
