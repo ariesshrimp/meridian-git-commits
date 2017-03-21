@@ -27,7 +27,7 @@ exports.default = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(fun
     while (1) {
       switch (_context.prev = _context.next) {
         case 0:
-          (0, _shelljs.exec)('git push --follow-tags origin master');
+          (0, _shelljs.exec)('git push --force --follow-tags origin `git branch | grep \* | cut -d " " -f2-`:master');
           _context.next = 3;
           return (0, _conventionalGithubReleaser2.default)({ type: 'oauth', token: process.env.GH_TOKEN }, { preset: 'angular' }, log);
 
