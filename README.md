@@ -1,6 +1,8 @@
 [![Build Status](https://travis-ci.org/joefraley/meridian-git-commits.svg?branch=master)](https://travis-ci.org/joefraley/meridian-git-commits)
 
 ## Why Use This?
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/joefraley/meridian-git-commits.svg)](https://greenkeeper.io/)
 Standard automated release notes and deployment!
 
 ## Install
